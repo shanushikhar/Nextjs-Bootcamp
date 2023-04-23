@@ -3,6 +3,7 @@ import getUserPost from "@/lib/getUserPost";
 import { Suspense } from "react";
 import UserPost from "./components/UserPost";
 import type { Metadata } from "next";
+import getAllUser from "@/lib/getAllUser";
 
 type Params = {
   params: {
@@ -40,4 +41,13 @@ export default async function UserPage({ params: { userId } }: Params) {
       </Suspense>
     </section>
   );
+}
+
+export async function generateStaticParams() {
+  const userData: Promise<UserType[]> = getAllUser();
+  const users = await userData;
+
+  return users.map((user) => ({
+    userId: user.id.toString(),
+  }));
 }
