@@ -8,7 +8,6 @@ export default async function getUser(userId: string) {
     }
   );
 
-  if (!response.ok) return new Error("Cant fetch single post");
-
+  if (!response.ok) return undefined;
   return response.json();
 }
